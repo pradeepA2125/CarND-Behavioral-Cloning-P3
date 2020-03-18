@@ -44,9 +44,9 @@ The model.py file contains the code for training and saving the convolution neur
 
 ###  Model Overview
 
-* I decided to test the model provided by NVIDIA as suggested by Udacity. The model architecture is described by NVIDIA [here](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). As an input this model takes in image of the shape (60,266,3) but our dashboard images/training images are of size (160,320,3). I decided to keep the architecture of the remaining model same but instead feed an image of different input shape which I will discuss later.
+* I decided to test the model provided by NVIDIA as suggested by Udacity. The model architecture is described by NVIDIA [here](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).
 
-<img src="./images/NVIDIA.JPG">
+<img src="./images/NVIDIA.jpg">
 
 ### Loading Data 
 
@@ -77,7 +77,57 @@ The model.py file contains the code for training and saving the convolution neur
 
 * I made a little changes to the original NVIDIA architecture, my final architecture looks like in the image below
 
-<img src="./images/mymodel.JPG">
+```python
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+lambda_1 (Lambda)            (None, 160, 320, 3)       0         
+_________________________________________________________________
+cropping2d_1 (Cropping2D)    (None, 65, 320, 3)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 31, 158, 24)       1824      
+_________________________________________________________________
+activation_1 (Activation)    (None, 31, 158, 24)       0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 14, 77, 36)        21636     
+_________________________________________________________________
+activation_2 (Activation)    (None, 14, 77, 36)        0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 5, 37, 48)         43248     
+_________________________________________________________________
+activation_3 (Activation)    (None, 5, 37, 48)         0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 3, 35, 64)         27712     
+_________________________________________________________________
+activation_4 (Activation)    (None, 3, 35, 64)         0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 1, 33, 64)         36928     
+_________________________________________________________________
+activation_5 (Activation)    (None, 1, 33, 64)         0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 2112)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 100)               211300    
+_________________________________________________________________
+activation_6 (Activation)    (None, 100)               0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 100)               0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 50)                5050      
+_________________________________________________________________
+activation_7 (Activation)    (None, 50)                0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 10)                510       
+_________________________________________________________________
+activation_8 (Activation)    (None, 10)                0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 1)                 11        
+=================================================================
+Total params: 348,219
+Trainable params: 348,219
+Non-trainable params: 0
+
+```
 
 * As it is clear from the model summary my first step is to apply normalization to the all the images.
 * Second step is to crop the image 70 pixels from top and 25 pixels from bottom. The image was cropped from top because I did not wanted to distract the model with trees and sky and 25 pixels from the bottom so as to remove the dashboard that is coming in the images.
@@ -118,8 +168,7 @@ After the full connected layer I have used a dropout so that the model generaliz
 
 After a lot of testing on track 1 I was convinced that this is my final model.
 
-### Output Video
-[![Click on Video to watch it on youtube](./run1.mp4)
+### Output Video can be found in the repo named run1.mp4
 
 ### Important SideNotes- 
 
