@@ -169,10 +169,3 @@ After the full connected layer I have used a dropout so that the model generaliz
 After a lot of testing on track 1 I was convinced that this is my final model.
 
 ### Output Video can be found in the repo named run1.mp4
-
-### Important SideNotes- 
-
-#### Simulator problem in GPU
-* I noticed that running simulator on GPU had a problem with latest tensorflow and keras versions.
-* "Cudnn handle cannot be initialized" is the error that I used to get while running the simulator. Workaround for this problem is to create a new environment with tensoflow instead of tensorflow-gpu and run simulator in that environment. Make sure to install other important libraries in new environment as well like eventlet, python-socketio which are required by drive.py to run.
-
